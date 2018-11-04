@@ -1,0 +1,71 @@
+version: 2.0
+
+defaults: &defaults
+  working_directory: ~/code
+  docker:
+    - image: trottski/builder:2
+
+persist: &persist
+  persist_to_workspace:
+    root: /root
+    paths: ./
+
+attach: &attach
+  attach_workspace:
+    at: /root
+
+jobs:
+  checkout_and_install:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Setup .npmrc
+          command: |
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc;
+      - run:
+          name: Install dependencies
+          command: |
+            yarn install --pure-lockfile
+      - run:
+          name: Log node_modules
+          command: ls && cd node_modules && ls
+      - *persist
+  build:
+    <<: *defaults
+    steps:
+      - *attach
+      - run:
+          name: Compiling
+          command: yarn build
+      - *persist
+  generate:
+    <<: *defaults
+    steps:
+      - *attach
+      - run:
+          name: Setup git
+          command: |
+            git config --global user.email tech@bulb.co.uk
+            git config --global user.name Bulb Technology
+            git config --global push.default simple
+            git branch --set-upstream-to=origin/$CIRCLE_BRANCH
+            git add packages
+            git commit -m "generate(icons): check in react-package [ci skip]"
+            git push -q https://${GITHUB_PERSONAL_ACCESS_TOKEN}@github.com/BulbEnergy/icons-generator.git $CIRCLE_BRANCH
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - checkout_and_install
+      - build:
+          requires:
+            - checkout_and_install
+      - generate:
+          filters:
+            branches:
+              ignore: master
+          requires:
+            - checkout_and_install
+            - build
