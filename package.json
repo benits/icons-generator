@@ -1,0 +1,27 @@
+{
+  "name": "bulb-icon-builder",
+  "version": "0.0.0",
+  "description": "tool for building bulb icon library from figma",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^10.12.2",
+    "@types/node-fetch": "^2.1.2",
+    "@types/prettier": "^1.13.2",
+    "@types/react": "^16.4.18",
+    "@types/svgo": "^1.0.1",
+    "env-cmd": "^8.0.2",
+    "node-fetch": "^2.2.0",
+    "prettier": "^1.14.3",
+    "react": "^16.6.0",
+    "svgo": "^1.1.1",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.6"
+  },
+  "scripts": {
+    "build": "ts-node ./src/index.ts && tsc -p ./tsconfig.package.json",
+    "dev-build": "env-cmd .env yarn build"
+  },
+  "dependencies": {}
+}

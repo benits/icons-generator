@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+
+  "compilerOptions": {
+    "declaration": true /* Generates corresponding '.d.ts' file. */,
+    "noEmit": false /* Do not emit outputs. */
+  },
+
+  "include": ["packages/**/*.ts", "packages/**/*.tsx"],
+  "exclude": ["*.d.ts"]
+}

@@ -1,0 +1,16 @@
+# Mac stuff
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+
+# Log files
+*.log
+
+# General development directories
+node_modules
+.env
+
+packages/**/*.js
+packages/**/*.map
+packages/**/*.d.ts
