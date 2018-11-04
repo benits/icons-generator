@@ -1,0 +1,19 @@
+{
+    "name": "@bulb/icons",
+    "version": "0.5.0",
+    "private": true,
+    "description": "bulb icons for react",
+    "author": "Bulb",
+    "license": "UNLICENSED",
+    "main": "lib/icons.js",
+    "files": [
+        "src",
+        "README.md"
+    ],
+    "publishConfig": {
+        "registry": "https://registry.yarnpkg.com"
+    },
+    "scripts": {
+        "test": "echo \"Error: run tests from root\" && exit 1"
+    }
+}
