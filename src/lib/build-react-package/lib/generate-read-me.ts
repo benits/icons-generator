@@ -6,9 +6,9 @@ import { prettierConfig } from '../../config';
 
 export const writeReadMe = async (icons: Icon) => {
   const getIconRow = (icon: Icon[0]) =>
-    `| ${icon.svg} | import { ${camelCase(icon.name)} } from '@bulb/icons/${
-      icon.name
-    }';' |`;
+    `| ![](./${icon.name}.svg) | \`import { ${camelCase(
+      icon.name,
+    )} } from '@bulb/icons/${icon.name}';\` |`;
 
   const iconTable = `| Appearance | How to import |
 |:----------:| ------------- |

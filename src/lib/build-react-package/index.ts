@@ -30,6 +30,8 @@ export const buildReactPackage = async (icons: Icon) => {
       reactSvgFileContents,
       'utf-8',
     );
+
+    await writeFileSync(`./packages/icons/${icon.name}.svg`, icon.svg, 'utf-8');
   }
 
   const readMeContents = await writeReadMe(icons);
