@@ -15,6 +15,8 @@ import { generateIconsData } from './lib/generate-icons-data';
 export type Icons = Unpacked<ReturnType<typeof getIconsFromFigma>>;
 
 export const getIconsFromFigma = async () => {
+  console.log('fetching design kit from figma');
+
   const response = await fetch(
     `https://api.figma.com/v1/files/${designKitFileKey}`,
     {
@@ -26,12 +28,19 @@ export const getIconsFromFigma = async () => {
   );
 
   const responseJson = (await response.json()) as FileResponse;
-
   const iconsFrame = getIconsFrame(responseJson);
+
+  console.log('fetching icon svgs from figma');
+
   const rawIcons = await getRawIcons(iconsFrame);
+
+  console.log('optimizing svgs from figma');
+
   const iconsData = await optimizeIcons(rawIcons);
   const cleanedIcons = cleanIcons(iconsData);
   const iconsDataContents = generateIconsData(cleanedIcons);
+
+  console.log('generating icons data');
 
   await writeFileSync(`./generated/icons-data.ts`, iconsDataContents, 'utf-8');
 

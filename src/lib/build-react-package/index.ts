@@ -20,6 +20,8 @@ const cleanReactPackage = () => {
 };
 
 export const buildReactPackage = async (icons: Icons) => {
+  console.log('generating package images and code');
+
   cleanReactPackage();
 
   for (const icon of icons) {
@@ -40,6 +42,8 @@ export const buildReactPackage = async (icons: Icons) => {
       'utf-8',
     );
   }
+
+  console.log('generating package docs and package.json');
 
   const readMeContents = await writeReadMe(icons);
 
