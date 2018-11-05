@@ -1,6 +1,5 @@
-/*
-THIS FILE IS GENERATED. DO NOT EDIT IT.
- */
+/* THIS FILE IS GENERATED. DO NOT EDIT IT. */
+
 export const iconsData = [
   {
     name: 'icon-account',
