@@ -1,6 +1,6 @@
 # bulb-icon-builder
 
-Tool for building bulb icon library from figma
+Tool for building the Bulb icon library from figma.
 
 ## Generating a new package version
 
@@ -18,7 +18,7 @@ Tool for building bulb icon library from figma
    1. click the `Create pull request` button
 3. Wait for our continuous integration tool to update your pull request
    - Your pull request will get updated with an additional commit titled
-     - `generate(icons): check in react-package [ci skip]`
+     - `generate(icons): check in generated changes`
 4. Have the pull request peer reviewed
 5. Merge pull request
    1. on the pull request page, click the `Merge pull request` button
@@ -44,4 +44,8 @@ You should then be able to run the `dev-build` script locally with the following
 yarn run dev-build
 ```
 
-This command will fetch the icons from figma, and generate a react package under `./packages/icons`.
+This command will fetch the icons from figma, and generate a react package under `./generated/icons`.
+
+## Licence
+
+This repository is licenced under the MIT licence with the exception of the `./generated` folder and it's contents.

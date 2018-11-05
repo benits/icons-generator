@@ -50,8 +50,8 @@ jobs:
             git config --global user.name Bulb Technology
             git config --global push.default simple
             git branch --set-upstream-to=origin/$CIRCLE_BRANCH
-            git add packages
-            git commit -m "generate(icons): check in react-package [ci skip]"
+            git add generated
+            git commit -m "generate(icons): check in generated changes [ci skip]"
             git push -q https://${GITHUB_PERSONAL_ACCESS_TOKEN}@github.com/BulbEnergy/icons-generator.git $CIRCLE_BRANCH
 
 workflows:

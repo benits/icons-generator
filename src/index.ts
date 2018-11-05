@@ -5,6 +5,8 @@ const generateReactPackage = async () => {
   const bulbImages = await getIconsFromFigma();
 
   await buildReactPackage(bulbImages);
+
+  console.log('Completed generating new package');
 };
 
 generateReactPackage();

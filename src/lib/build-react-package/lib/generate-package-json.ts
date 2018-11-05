@@ -1,4 +1,4 @@
-const packageJson = require('../../../../packages/icons/package.json');
+const packageJson = require('../../../../generated/icons/package.json');
 
 export const generatePackageJson = async () => {
   const [major, minor, patch] = packageJson.version.split('.');

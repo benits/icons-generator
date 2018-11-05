@@ -1,14 +1,14 @@
 import { readdirSync, unlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { Icon } from '../get-icons-from-figma';
+import { Icons } from '../get-icons-from-figma';
 
 import { convertToReactDom } from './lib/convert-to-react-dom';
 import { writeReadMe } from './lib/generate-read-me';
 import { generatePackageJson } from './lib/generate-package-json';
 
 const cleanReactPackage = () => {
-  const reactPackageDirectory = './packages/icons';
+  const reactPackageDirectory = './generated/icons';
 
   const files = readdirSync(reactPackageDirectory);
 
@@ -19,29 +19,40 @@ const cleanReactPackage = () => {
   return;
 };
 
-export const buildReactPackage = async (icons: Icon) => {
+export const buildReactPackage = async (icons: Icons) => {
+  console.log('generating package images and code');
+
   cleanReactPackage();
 
   for (const icon of icons) {
-    const reactSvgFileContents = await convertToReactDom(icon.name, icon.svg);
+    const reactSvgFileContents = await convertToReactDom(
+      icon.name,
+      icon.optimizedSvg,
+    );
 
     await writeFileSync(
-      `./packages/icons/${icon.name}.tsx`,
+      `./generated/icons/${icon.name}.tsx`,
       reactSvgFileContents,
       'utf-8',
     );
 
-    await writeFileSync(`./packages/icons/${icon.name}.svg`, icon.svg, 'utf-8');
+    await writeFileSync(
+      `./generated/icons/${icon.name}.svg`,
+      icon.optimizedSvg,
+      'utf-8',
+    );
   }
+
+  console.log('generating package docs and package.json');
 
   const readMeContents = await writeReadMe(icons);
 
-  await writeFileSync(`./packages/icons/README.md`, readMeContents, 'utf-8');
+  await writeFileSync(`./generated/icons/README.md`, readMeContents, 'utf-8');
 
   const packageJsonContents = await generatePackageJson();
 
   await writeFileSync(
-    `./packages/icons/package.json`,
+    `./generated/icons/package.json`,
     packageJsonContents,
     'utf-8',
   );

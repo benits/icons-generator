@@ -1,11 +1,14 @@
 import fetch from 'node-fetch';
 
+import { designKitFileKey, figmaPersonalAccessToken } from '../../config';
+
+import { Unpacked } from '../../type-helpers';
+
 import { Frame, ImagesResponse } from './figma-types';
 
-import { designKitFileKey, figmaPersonalAccessToken } from '../../config';
-import { svgo } from './svgo';
+export type RawIcons = Unpacked<ReturnType<typeof getRawIcons>>;
 
-export const getIconFilePaths = async (iconsFrame: Frame) => {
+export const getRawIcons = async (iconsFrame: Frame) => {
   let iconComponents = [];
 
   for (const child of iconsFrame.children) {
@@ -56,11 +59,9 @@ export const getIconFilePaths = async (iconsFrame: Frame) => {
     const svgResponse = await fetch(svgUrl);
     const svgResponseText = await svgResponse.text();
 
-    const optimizedSvg = await svgo.optimize(svgResponseText);
-
     images.push({
       ...iconComponent,
-      svg: optimizedSvg.data,
+      rawSvg: svgResponseText,
     });
   }
 
