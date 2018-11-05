@@ -1,6 +1,6 @@
 # bulb-icon-builder
 
-Tool for building bulb icon library from figma
+Tool for building the Bulb icon library from figma.
 
 ## Generating a new package version
 
@@ -45,3 +45,7 @@ yarn run dev-build
 ```
 
 This command will fetch the icons from figma, and generate a react package under `./generated/icons`.
+
+## Licence
+
+This repository is licenced under the MIT licence with the exception of the `./generated` folder and it's contents.
