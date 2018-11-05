@@ -6,6 +6,6 @@
     "noEmit": false /* Do not emit outputs. */
   },
 
-  "include": ["packages/**/*.ts", "packages/**/*.tsx"],
+  "include": ["generated/**/*.ts", "generated/**/*.tsx"],
   "exclude": ["*.d.ts"]
 }

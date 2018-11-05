@@ -8,7 +8,7 @@ import { writeReadMe } from './lib/generate-read-me';
 import { generatePackageJson } from './lib/generate-package-json';
 
 const cleanReactPackage = () => {
-  const reactPackageDirectory = './packages/icons';
+  const reactPackageDirectory = './generated/icons';
 
   const files = readdirSync(reactPackageDirectory);
 
@@ -26,22 +26,26 @@ export const buildReactPackage = async (icons: Icon) => {
     const reactSvgFileContents = await convertToReactDom(icon.name, icon.svg);
 
     await writeFileSync(
-      `./packages/icons/${icon.name}.tsx`,
+      `./generated/icons/${icon.name}.tsx`,
       reactSvgFileContents,
       'utf-8',
     );
 
-    await writeFileSync(`./packages/icons/${icon.name}.svg`, icon.svg, 'utf-8');
+    await writeFileSync(
+      `./generated/icons/${icon.name}.svg`,
+      icon.svg,
+      'utf-8',
+    );
   }
 
   const readMeContents = await writeReadMe(icons);
 
-  await writeFileSync(`./packages/icons/README.md`, readMeContents, 'utf-8');
+  await writeFileSync(`./generated/icons/README.md`, readMeContents, 'utf-8');
 
   const packageJsonContents = await generatePackageJson();
 
   await writeFileSync(
-    `./packages/icons/package.json`,
+    `./generated/icons/package.json`,
     packageJsonContents,
     'utf-8',
   );

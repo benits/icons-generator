@@ -11,6 +11,6 @@
 node_modules
 .env
 
-packages/**/*.js
-packages/**/*.map
-packages/**/*.d.ts
+generated/**/*.js
+generated/**/*.map
+generated/**/*.d.ts
