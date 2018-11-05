@@ -1,11 +1,13 @@
 import prettier from 'prettier';
 
-import { Icon } from '../../get-icons-from-figma';
-import { camelCase } from './camel-case';
+import { Icons } from '../../get-icons-from-figma';
 import { prettierConfig } from '../../config';
+import { generatedHeaderMd } from '../../generated-header';
 
-export const writeReadMe = async (icons: Icon) => {
-  const getIconRow = (icon: Icon[0]) =>
+import { camelCase } from './camel-case';
+
+export const writeReadMe = async (icons: Icons) => {
+  const getIconRow = (icon: Icons[0]) =>
     `| ![](./${icon.name}.svg) | \`import { ${camelCase(
       icon.name,
     )} } from '@bulb/icons/${icon.name}';\` |`;
@@ -15,9 +17,7 @@ export const writeReadMe = async (icons: Icon) => {
 ${icons.map(getIconRow).join('\n')}
 `;
 
-  const readMeContents = `<!---
-THIS FILE IS GENERATED. DO NOT EDIT IT.
--->
+  const readMeContents = `${generatedHeaderMd}
 
 # Bulb Icons
 

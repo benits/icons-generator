@@ -1,8 +1,10 @@
 import prettier from 'prettier';
-import { camelCase } from './camel-case';
+
 import { prettierConfig } from '../../config';
 
-const GENERATED_HEADER = '/* THIS FILE IS GENERATED. DO NOT EDIT IT. */';
+import { generatedHeaderTs } from '../../generated-header';
+
+import { camelCase } from './camel-case';
 
 export const convertToReactDom = (iconId: string, code: string) => {
   const componentTitle = camelCase(iconId);
@@ -23,7 +25,7 @@ export const convertToReactDom = (iconId: string, code: string) => {
     ` width={size || "1rem"} height={size || "1rem"} `,
   );
 
-  const unformattedCode = `${GENERATED_HEADER}
+  const unformattedCode = `${generatedHeaderTs}
 import * as React from 'react';
 
 interface Props extends React.SVGProps<SVGSVGElement> {

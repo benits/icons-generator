@@ -1,13 +1,18 @@
 import fetch from 'node-fetch';
+import { writeFileSync } from 'fs';
+
+import { Unpacked } from '../type-helpers';
+import { cleanIcons } from './lib/clean-icons';
+
+import { designKitFileKey, figmaPersonalAccessToken } from '../config';
 
 import { getIconsFrame } from './lib/get-icons-frame';
-import { designKitFileKey, figmaPersonalAccessToken } from '../config';
-import { getIconFilePaths } from './lib/get-icon-components';
-
+import { getRawIcons } from './lib/get-raw-icons';
 import { FileResponse } from './lib/figma-types';
+import { optimizeIcons } from './lib/optimize-icons';
+import { generateIconsData } from './lib/generate-icons-data';
 
-type Unpacked<T> = T extends Promise<infer U> ? U : T;
-export type Icon = Unpacked<ReturnType<typeof getIconsFromFigma>>;
+export type Icons = Unpacked<ReturnType<typeof getIconsFromFigma>>;
 
 export const getIconsFromFigma = async () => {
   const response = await fetch(
@@ -23,7 +28,12 @@ export const getIconsFromFigma = async () => {
   const responseJson = (await response.json()) as FileResponse;
 
   const iconsFrame = getIconsFrame(responseJson);
-  const images = await getIconFilePaths(iconsFrame);
+  const rawIcons = await getRawIcons(iconsFrame);
+  const iconsData = await optimizeIcons(rawIcons);
+  const cleanedIcons = cleanIcons(iconsData);
+  const iconsDataContents = generateIconsData(cleanedIcons);
 
-  return images;
+  await writeFileSync(`./generated/icons-data.ts`, iconsDataContents, 'utf-8');
+
+  return cleanedIcons;
 };

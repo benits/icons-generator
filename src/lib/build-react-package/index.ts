@@ -1,7 +1,7 @@
 import { readdirSync, unlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { Icon } from '../get-icons-from-figma';
+import { Icons } from '../get-icons-from-figma';
 
 import { convertToReactDom } from './lib/convert-to-react-dom';
 import { writeReadMe } from './lib/generate-read-me';
@@ -19,11 +19,14 @@ const cleanReactPackage = () => {
   return;
 };
 
-export const buildReactPackage = async (icons: Icon) => {
+export const buildReactPackage = async (icons: Icons) => {
   cleanReactPackage();
 
   for (const icon of icons) {
-    const reactSvgFileContents = await convertToReactDom(icon.name, icon.svg);
+    const reactSvgFileContents = await convertToReactDom(
+      icon.name,
+      icon.optimizedSvg,
+    );
 
     await writeFileSync(
       `./generated/icons/${icon.name}.tsx`,
@@ -33,7 +36,7 @@ export const buildReactPackage = async (icons: Icon) => {
 
     await writeFileSync(
       `./generated/icons/${icon.name}.svg`,
-      icon.svg,
+      icon.optimizedSvg,
       'utf-8',
     );
   }
