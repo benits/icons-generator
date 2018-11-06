@@ -6,7 +6,7 @@ if (designKitFileKey === undefined) {
 }
 
 if (figmaPersonalAccessToken === undefined) {
-  throw new Error('Environment variable FIGMGA_PERSONAL_ACCESS_TOKEN missing');
+  throw new Error('Environment variable FIGMA_PERSONAL_ACCESS_TOKEN missing');
 }
 
 export const prettierConfig = {

@@ -25,7 +25,7 @@ Tool for building the Bulb icon library from figma.
 
 ## Development | Getting started
 
-1. Create a figma personal access token and add it to a .env file prefixed by `FIGMGA_PERSONAL_ACCESS_TOKEN=`.
+1. Create a figma personal access token and add it to a .env file prefixed by `FIGMA_PERSONAL_ACCESS_TOKEN=`.
    - learn about generating a file token at https://www.figma.com/developers/docs#access-tokens
 2. Add the file key for the figma design kit to a .env file prefixed by `DESIGN_KIT_FILE_KEY=`.
    - learn about how to find the file key at https://www.figma.com/developers/docs#get-files-endpoint
@@ -34,7 +34,7 @@ ie. (note, these are example values and not real keys)
 
 ```
 // .env
-FIGMGA_PERSONAL_ACCESS_TOKEN=3513-4197ff56-fd89-3475-7894-3254jk3534j
+FIGMA_PERSONAL_ACCESS_TOKEN=3513-4197ff56-fd89-3475-7894-3254jk3534j
 DESIGN_KIT_FILE_KEY=YDuss21DSA89SDSAdfsDS9c4
 ```
 
